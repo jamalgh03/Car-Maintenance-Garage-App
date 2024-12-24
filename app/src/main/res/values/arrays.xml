@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Date Filters -->
+    <string-array name="date_filters">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Custom</item>
+    </string-array>
+
+    <!-- Statistics Types -->
+    <string-array name="statistics_types">
+        <item>Maintenance</item>
+        <item>Payments</item>
+        <item>Other</item>
+    </string-array>
+</resources>

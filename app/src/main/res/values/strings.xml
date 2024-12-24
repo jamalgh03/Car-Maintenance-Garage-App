@@ -5,5 +5,23 @@
         <item>Ready</item>
         <item>Pending</item>
     </string-array>
+    <string name="get_started_button">Get Started</string>
+    <string name="welcome">Welcome</string>
+    <string name="enter_your_information">Enter your information</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">forgot password?</string>
+    <string name="login">login</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="signup">SignUp</string>
+    <string name="user_name">User name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="strength_password">Password strength: </string>
+    <string name="weak_password_strength">Weak</string>
+    <string name="keep_your_passwords_safe">Keep your passwords Safe</string>
+    <string name="change_password">Change password</string>
+    <string name="log_out">Log out</string>
+    <string name="password_account">Password of account</string>
+    <string name="save_and_log_out">Save and log out</string>
 
 </resources>
