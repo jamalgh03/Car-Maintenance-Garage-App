@@ -5,5 +5,6 @@
     <color name="BlueGray">#2C3E50</color>
     <color name="VeryLightGray">#FAFAFA</color>
     <color name="LightGray">#ECEFF1</color>
+    <color name="Blue">#0000FF</color>
 
 </resources>

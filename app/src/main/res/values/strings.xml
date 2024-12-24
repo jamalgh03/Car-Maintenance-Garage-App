@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Car Maintenance Garage App</string>
+    <string-array name="filter_options">
+        <item>All</item>
+        <item>Ready</item>
+        <item>Pending</item>
+    </string-array>
+
 </resources>
