@@ -9,5 +9,5 @@
     <color name="link_color">#FF6200EE</color>
     <color name="red">#FF0000</color>
     <color name="primary_color">#6200EE</color>
-
+    <color name="darker_gray">#aaa</color>
 </resources>

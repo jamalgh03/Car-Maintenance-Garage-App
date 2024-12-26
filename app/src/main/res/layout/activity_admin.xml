@@ -12,24 +12,18 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="395dp"
-        android:layout_height="246dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
         android:orientation="vertical"
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="342dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/rounded_background"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_background"
             android:layout_marginBottom="5dp"
             android:padding="3dp">
 
@@ -62,7 +56,6 @@
                         android:textColor="#000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -94,19 +87,16 @@
                         android:textColor="#000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="342dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/rounded_background"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_background"
             android:padding="3dp">
 
             <androidx.cardview.widget.CardView
@@ -138,7 +128,6 @@
                         android:textColor="#000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -170,31 +159,24 @@
                         android:textColor="#000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- EditText with Rounded Corners -->
-
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="249dp"
+        android:layout_width="match_parent"
         android:layout_height="77dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
-        android:background="@drawable/bottom_bar_background"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="8dp"> <!-- تم إضافة هذه الخاصية لتوسيط الـ Bottom Navigation -->
+        android:padding="8dp"> <!-- Centered Bottom Navigation -->
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/button_background"
@@ -203,34 +185,30 @@
             android:src="@drawable/order" />
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/button_background"
             android:contentDescription="Favorites"
             android:scaleType="centerCrop"
             android:src="@drawable/add" />
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
+            android:contentDescription="stats"
             android:background="@drawable/button_background"
-            android:contentDescription="Menu"
             android:scaleType="centerCrop"
-            android:src="@drawable/statsgraph" />
+            android:src="@drawable/stats" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout2"
         android:layout_below="@+id/linearLayout3"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="20dp"
+        android:layout_above="@+id/linearLayout2"
         android:orientation="vertical"
         android:padding="8dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -244,27 +222,28 @@
             <Spinner
                 android:id="@+id/filterSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/custom_spinner_background" />
 
             <EditText
                 android:id="@+id/searchEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:hint="Search"
+                android:autofillHints="username"
                 android:padding="8dp"
-                android:background="@android:color/transparent"
                 android:inputType="text"
+                android:background="@android:color/transparent"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/searchButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/button_background"
                 android:src="@drawable/search"
@@ -273,7 +252,7 @@
 
         <ListView
             android:id="@+id/listView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:divider="@android:color/darker_gray" />
