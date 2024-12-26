@@ -23,5 +23,6 @@
     <string name="log_out">Log out</string>
     <string name="password_account">Password of account</string>
     <string name="save_and_log_out">Save and log out</string>
-
+    <string name="revenue_icon">Revenue Icon</string>
+    <string name="car_icon">Car Icon</string>
 </resources>
