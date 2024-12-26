@@ -13,10 +13,10 @@
         android:theme="@style/Theme.CarMaintenanceGarageApp"
         tools:targetApi="31">
         <activity
-            android:name=".payment"
+            android:name=".AddRequestAdmin"
             android:exported="false" />
         <activity
-            android:name=".AddRequestAdmin"
+            android:name=".payment"
             android:exported="false" />
         <activity
             android:name=".AddRequest"
