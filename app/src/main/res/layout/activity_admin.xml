@@ -8,7 +8,6 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- Existing Content -->
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -164,15 +163,28 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- EditText with Rounded Corners -->
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="77dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="62dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bottom_bar_background"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="8dp"> <!-- Centered Bottom Navigation -->
+        android:padding="8dp">
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/button_background"
+            android:contentDescription="request button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/order" />
 
         <ImageButton
             android:layout_width="48dp"
@@ -180,15 +192,15 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/button_background"
-            android:contentDescription="List"
+            android:contentDescription="edit request button"
             android:scaleType="centerCrop"
-            android:src="@drawable/order" />
+            android:src="@drawable/edit_note" />
 
         <ImageButton
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/button_background"
-            android:contentDescription="Favorites"
+            android:contentDescription="add car button"
             android:scaleType="centerCrop"
             android:src="@drawable/add" />
 
@@ -196,8 +208,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
-            android:contentDescription="stats"
             android:background="@drawable/button_background"
+            android:contentDescription="stats button"
             android:scaleType="centerCrop"
             android:src="@drawable/stats" />
     </LinearLayout>
