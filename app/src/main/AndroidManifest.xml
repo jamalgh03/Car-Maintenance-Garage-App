@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CarMaintenanceGarageApp"
         tools:targetApi="31">
         <activity
+            android:name=".CaptionedImagesAdapter"
+            android:exported="false" />
+        <activity
             android:name=".AddNewCarManufacturer"
             android:exported="false" />
         <activity

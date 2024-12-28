@@ -50,6 +50,27 @@
         </LinearLayout>
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeText"
+        android:layout_marginTop="95dp"
+        android:layout_marginBottom="90dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@drawable/rounded_background"
+        tools:ignore="NotSibling" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_background"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layout_below="@id/recyclerView">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="249dp"
@@ -60,7 +81,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:layout_centerHorizontal="true"> <!-- تم إضافة هذه الخاصية لتوسيط الـ Bottom Navigation -->
+        android:layout_centerHorizontal="true">
 
         <ImageButton
             android:layout_width="40dp"
