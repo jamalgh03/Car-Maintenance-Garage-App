@@ -8,12 +8,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class AddCarAdmin extends AppCompatActivity {
+public class AddNewCarManufacturer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_car_admin);
+        setContentView(R.layout.activity_add_new_car_manufacturer);
 
     }
 }

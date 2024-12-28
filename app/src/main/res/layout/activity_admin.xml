@@ -52,8 +52,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="total cars"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
+
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -83,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Work-in progress"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -124,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Ready for delivery"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -155,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Requests Pending"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -165,13 +166,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="320dp"
-        android:layout_height="77dp"
+        android:layout_width="334dp"
+        android:layout_height="72dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginEnd="61dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="26dp"
         android:background="@drawable/bottom_bar_background"
         android:gravity="center"
@@ -209,6 +210,15 @@
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/button_background"
+            android:contentDescription="add new car manufactor button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/addcar" />
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_background"
             android:contentDescription="stats button"
             android:scaleType="centerCrop"
             android:src="@drawable/stats" />
@@ -235,8 +245,11 @@
                 android:id="@+id/filterSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/custom_spinner_background" />
+                android:paddingEnd="40dp"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:gravity="center_vertical"/>
+
+
 
             <EditText
                 android:id="@+id/searchEditText"
