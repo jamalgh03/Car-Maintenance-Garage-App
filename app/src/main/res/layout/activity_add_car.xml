@@ -53,11 +53,37 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/writeCarNumberText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="87dp"
+        android:layout_marginStart="12dp"
+        android:text="Write the car number"
+        android:textColor="@color/LightGray"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/carNumberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/writeCarNumberText"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:hint="Enter car number"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/LightGray"
+        android:textSize="14sp" />
+
+    <TextView
         android:id="@+id/chooseCarTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/carNumberEditText"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="8dp"
         android:text="Choose the car type"
         android:textColor="@color/LightGray"
         android:textSize="16sp"
@@ -78,8 +104,8 @@
 
     <ListView
         android:id="@+id/itemListView"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_width="357dp"
+        android:layout_height="278dp"
         android:layout_below="@id/optionSpinner"
         android:layout_marginTop="10dp"
         android:background="@color/LightGray"
