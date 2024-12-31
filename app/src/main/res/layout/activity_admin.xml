@@ -202,22 +202,13 @@
 
         <ImageButton
             android:id="@+id/addcaradmin"
-            android:layout_width="48dp"
+            android:layout_width="41dp"
             android:layout_height="48dp"
             android:background="@drawable/button_background"
             android:contentDescription="add car button"
             android:scaleType="centerCrop"
             android:src="@drawable/add" />
 
-        <ImageButton
-            android:id="@+id/addnewcarmanufactoradmin"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/button_background"
-            android:contentDescription="add new car manufactor button"
-            android:scaleType="centerCrop"
-            android:src="@drawable/addcar" />
 
         <ImageButton
             android:id="@+id/stats"
@@ -228,6 +219,16 @@
             android:contentDescription="stats button"
             android:scaleType="centerCrop"
             android:src="@drawable/stats" />
+        <ImageButton
+            android:id="@+id/moreoptions"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_background"
+            android:contentDescription="add new car manufactor button"
+            android:scaleType="centerCrop"
+            android:src="@drawable/manage" />
+
     </LinearLayout>
 
     <LinearLayout

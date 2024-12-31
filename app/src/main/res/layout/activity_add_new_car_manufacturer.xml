@@ -69,6 +69,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageButton
+            android:id="@+id/adminhomenewmanufactor"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -87,6 +88,7 @@
             android:src="@drawable/order" />
 
         <ImageButton
+            android:id="@+id/addcarnewmanufactor"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"

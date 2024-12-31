@@ -29,35 +29,35 @@
                 android:id="@+id/carIcon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_car"
                 android:layout_alignParentStart="true"
-                android:contentDescription="Car Icon"/>
+                android:contentDescription="Car Icon"
+                android:src="@drawable/ic_car" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@id/carIcon"
-                android:layout_marginStart="16dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Toyota Camry 2022"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Owner: John Doe"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Service: Oil Change"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -70,16 +70,16 @@
                     android:id="@+id/acceptButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accept"
                     android:layout_marginBottom="8dp"
-                    android:backgroundTint="#4CAF50"/>
+                    android:backgroundTint="#4CAF50"
+                    android:text="Accept" />
 
                 <Button
                     android:id="@+id/rejectButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reject"
-                    android:backgroundTint="#F44336"/>
+                    android:backgroundTint="#F44336"
+                    android:text="Reject" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

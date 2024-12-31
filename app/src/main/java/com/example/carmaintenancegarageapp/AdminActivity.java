@@ -21,7 +21,7 @@ public class AdminActivity extends AppCompatActivity {
     ImageButton add_request;
     ImageButton edit_request_admin;
     ImageButton add_car_admin;
-    ImageButton add_new_car_manufactor_admin;
+    ImageButton more_options;
     ImageButton stats;
 
     @Override
@@ -32,8 +32,16 @@ public class AdminActivity extends AppCompatActivity {
         add_request = findViewById(R.id.addrequestadmin);
         edit_request_admin = findViewById(R.id.editrequestadmin);
         add_car_admin = findViewById(R.id.addcaradmin);
-        add_new_car_manufactor_admin = findViewById(R.id.addnewcarmanufactoradmin);
+        more_options = findViewById(R.id.moreoptions);
         stats = findViewById(R.id.stats);
+        pending_filed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ig = new Intent(AdminActivity.this, About.class);
+                startActivity(ig);
+
+            }
+        });
         add_request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,15 +61,15 @@ public class AdminActivity extends AppCompatActivity {
         add_car_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ig = new Intent(AdminActivity.this, AddCar.class);
+                Intent ig = new Intent(AdminActivity.this, AddAdmin.class);
                 startActivity(ig);
 
             }
         });
-        add_new_car_manufactor_admin.setOnClickListener(new View.OnClickListener() {
+        more_options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ig = new Intent(AdminActivity.this, AddNewCarManufacturer.class);
+                Intent ig = new Intent(AdminActivity.this, MoreOptions.class);
                 startActivity(ig);
 
             }
