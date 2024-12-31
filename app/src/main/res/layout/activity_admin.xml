@@ -140,6 +140,7 @@
                 app:cardElevation="8dp">
 
                 <LinearLayout
+                    android:id="@+id/pendingfiled"
                     android:layout_width="131dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -180,6 +181,7 @@
         android:padding="8dp">
 
         <ImageButton
+            android:id="@+id/addrequestadmin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/button_background"
@@ -188,6 +190,7 @@
             android:src="@drawable/order" />
 
         <ImageButton
+            android:id="@+id/editrequestadmin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -198,6 +201,7 @@
             android:src="@drawable/edit_note" />
 
         <ImageButton
+            android:id="@+id/addcaradmin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/button_background"
@@ -206,6 +210,7 @@
             android:src="@drawable/add" />
 
         <ImageButton
+            android:id="@+id/addnewcarmanufactoradmin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -215,6 +220,7 @@
             android:src="@drawable/addcar" />
 
         <ImageButton
+            android:id="@+id/stats"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
