@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_car_maintenance" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/continueButton"
         android:layout_width="171dp"
         android:layout_height="59dp"
