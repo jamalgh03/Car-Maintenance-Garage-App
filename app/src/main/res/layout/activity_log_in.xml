@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/BlueGray"
     tools:context=".LogInActivity">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_width="227dp"
         android:layout_height="167dp"
         android:layout_marginTop="44dp"
-        android:background="@drawable/ic_car_maintenance"
+        android:background="@drawable/jamal"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -121,11 +121,11 @@
             android:id="@+id/continueButton"
             android:layout_width="166dp"
             android:layout_height="59dp"
-            android:backgroundTint="#000000"
+            android:backgroundTint="@color/BlueGray"
             android:layout_marginTop="10dp"
             android:text="@string/login"
             android:textSize="20sp"
-            app:strokeColor="#6193F6"
+            app:strokeColor="@color/BlueGray"
             app:strokeWidth="3dp" />
 
         <LinearLayout
@@ -149,7 +149,7 @@
                 android:background="#00FFFFFF"
                 android:onClick="openSignUpButtonClicked"
                 android:text="@string/signup"
-                android:textColor="@color/link_color" />
+                android:textColor="@color/BlueGray" />
 
         </LinearLayout>
 

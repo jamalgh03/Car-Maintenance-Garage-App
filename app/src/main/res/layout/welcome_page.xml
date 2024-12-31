@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/BlueGray"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -20,14 +20,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_car_maintenance" />
+        app:srcCompat="@drawable/jamal" />
 
     <Button
         android:id="@+id/continueButton"
         android:layout_width="171dp"
         android:layout_height="59dp"
         android:layout_marginBottom="108dp"
-        android:backgroundTint="#0E244F"
+        android:backgroundTint="@color/BlueGray"
         android:onClick="getStartedButtonClicked"
         android:text="@string/get_started_button"
         android:textSize="17sp"

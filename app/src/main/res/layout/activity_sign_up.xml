@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/BlueGray"
     tools:context=".SignUpActivity">
 
     <ImageView
         android:layout_width="188dp"
         android:layout_height="151dp"
-        android:background="@drawable/background_image"
+        android:background="@drawable/jamal"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,11 +156,11 @@
                 android:layout_width="166dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="80dp"
-                android:backgroundTint="#0E244F"
+                android:backgroundTint="@color/BlueGray"
                 android:onClick="signUpButtonClicked"
                 android:text="@string/signup"
                 android:textSize="20sp"
-                app:strokeColor="#6193F6"
+                app:strokeColor="@color/BlueGray"
                 app:strokeWidth="3dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
