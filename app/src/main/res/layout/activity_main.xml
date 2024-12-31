@@ -71,7 +71,6 @@
         android:gravity="center_vertical"
         android:layout_below="@id/recyclerView">
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="249dp"
         android:layout_height="77dp"
@@ -84,6 +83,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageButton
+            android:id="@+id/homeButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -92,6 +92,7 @@
             android:src="@drawable/home" />
 
         <ImageButton
+            android:id="@+id/listButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -102,14 +103,16 @@
             android:src="@drawable/order" />
 
         <ImageButton
+            android:id="@+id/AddButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
-            android:contentDescription="Favorites"
+            android:contentDescription="Add"
             android:scaleType="centerCrop"
             android:src="@drawable/add" />
 
         <ImageButton
+            android:id="@+id/menuButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -118,5 +121,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/manage" />
     </LinearLayout>
+
 
 </RelativeLayout>

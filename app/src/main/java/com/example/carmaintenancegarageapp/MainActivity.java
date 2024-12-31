@@ -1,8 +1,12 @@
 package com.example.carmaintenancegarageapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,12 +16,13 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Handler handler = new Handler();
     private int currentPosition = 0;
+    private ImageButton menuButton , AddButton , listButton , homeButton ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ClickAction();
         String[] captions = new String[ServiceCar.pizzas.length];
         int[] imageIds = new int[ServiceCar.pizzas.length];
 
@@ -26,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             imageIds[i] = ServiceCar.pizzas[i].getImageID();
         }
 
-        // إعداد الـ RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(captions, imageIds);
 
@@ -55,6 +59,48 @@ public class MainActivity extends AppCompatActivity {
         };
 
         handler.post(autoScrollRunnable);
+    }
+
+    public void ClickAction(){
+        menuButton = findViewById(R.id.menuButton);
+        AddButton = findViewById(R.id.AddButton);
+        listButton = findViewById(R.id.listButton);
+        homeButton = findViewById(R.id.homeButton);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profile = new Intent(MainActivity.this, MoreOptions.class);
+                startActivity(profile);
+
+
+            }
+        });
+
+        AddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent add = new Intent(MainActivity.this, AddCar.class);
+                startActivity(add);
+
+
+            }
+        });
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent request = new Intent(MainActivity.this, AddRequest.class);
+                startActivity(request);
+
+
+            }
+        }); homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+
+            }
+        });
     }
 
     @Override
