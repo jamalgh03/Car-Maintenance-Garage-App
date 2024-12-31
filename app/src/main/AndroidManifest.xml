@@ -44,7 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".AddRequestAdmin"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".payment"
             android:exported="false" />

@@ -164,6 +164,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageButton
+            android:id="@+id/homeButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -172,6 +173,7 @@
             android:src="@drawable/home" />
 
         <ImageButton
+            android:id="@+id/listButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -182,6 +184,7 @@
             android:src="@drawable/order" />
 
         <ImageButton
+            android:id="@+id/favoritesButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -190,6 +193,7 @@
             android:src="@drawable/add" />
 
         <ImageButton
+            android:id="@+id/menuButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
