@@ -39,23 +39,40 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="3dp">
+                   <LinearLayout
+                        android:layout_width="131dp"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:contentDescription="Total cars Icon"
+                           android:padding="3dp"
+                           android:src="@drawable/veichle" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="Total cars Icon"
-                        android:padding="3dp"
-                        android:src="@drawable/veichle" />
+                       <TextView
+                           android:id="@+id/totalcarsnum"
+                           android:layout_width="30dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="13dp"
+                           android:layout_marginTop="8dp"
+                           android:textColor="@color/white"
+                           android:textSize="17sp"
+                           android:textStyle="bold" />
+
+                   </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="total cars"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blackSqueeze"
                         android:textSize="12sp"
 
                         android:textStyle="bold" />
+
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -72,19 +89,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="3dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="Spare Part Icon"
-                        android:src="@drawable/workprogress" />
-
+                    <LinearLayout
+                        android:layout_width="131dp"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:contentDescription="Spare Part Icon"
+                            android:src="@drawable/workprogress" />
+                        <TextView
+                            android:id="@+id/totalworkcarsnum"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold"  />
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Work-in progress"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blackSqueeze"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -112,20 +141,32 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="3dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="Spare Part Icon"
-                        android:padding="3dp"
-                        android:src="@drawable/ready" />
-
+                    <LinearLayout
+                        android:layout_width="131dp"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:contentDescription="Spare Part Icon"
+                            android:padding="3dp"
+                            android:src="@drawable/ready" />
+                        <TextView
+                            android:id="@+id/totalreadycarsnum"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold"  />
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Ready for delivery"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blackSqueeze"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -145,19 +186,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="3dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="Spare Part Icon"
-                        android:src="@drawable/pending" />
-
+                    <LinearLayout
+                        android:layout_width="131dp"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:contentDescription="Spare Part Icon"
+                            android:src="@drawable/pending" />
+                        <TextView
+                            android:id="@+id/totalpendingcarsnum"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold"  />
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Requests Pending"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blackSqueeze"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -256,8 +309,6 @@
                 android:drawableEnd="@drawable/ic_arrow_down"
                 android:gravity="center_vertical"/>
 
-
-
             <EditText
                 android:id="@+id/searchEditText"
                 android:layout_width="48dp"
@@ -282,12 +333,14 @@
                 android:contentDescription="Search Button" />
         </LinearLayout>
 
-        <ListView
+            <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:divider="@android:color/darker_gray" />
+
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"/>
     </LinearLayout>
 
 </RelativeLayout>
