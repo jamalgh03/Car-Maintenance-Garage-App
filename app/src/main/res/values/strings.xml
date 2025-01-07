@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">Car Maintenance Garage App</string>
-    <string-array name="filter_options">
-        <item>All</item>
-        <item>Ready</item>
-        <item>Pending</item>
-    </string-array>
     <string name="get_started_button">Get Started</string>
     <string name="welcome">Welcome</string>
     <string name="enter_your_information">Enter your information</string>

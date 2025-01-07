@@ -27,7 +27,7 @@ public class MoreOptions extends AppCompatActivity {
         notifications = findViewById(R.id.profile);
         about = findViewById(R.id.profile);
 
-        contact.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent ig = new Intent(MoreOptions.this, ProfileActivity.class);

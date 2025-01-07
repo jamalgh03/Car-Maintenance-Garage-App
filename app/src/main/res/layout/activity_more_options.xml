@@ -38,14 +38,6 @@
                 android:gravity="center_vertical"
                 android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icperson"
-                    android:contentDescription="Profile Icon"
-
-                    android:layout_marginRight="16dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,11 +59,6 @@
                 android:id="@+id/notifications"
                 android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Notifications Icon"
-                    android:layout_marginRight="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,12 +81,6 @@
                 android:id="@+id/contact"
                 android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Contact Icon"
-                    android:layout_marginRight="16dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,11 +102,6 @@
                 android:id="@+id/about"
                 android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="About Icon"
-                    android:layout_marginRight="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
