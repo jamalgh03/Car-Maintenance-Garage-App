@@ -23,9 +23,9 @@ public class MoreOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_options);
         profile = findViewById(R.id.profile);
-        contact = findViewById(R.id.profile);
-        notifications = findViewById(R.id.profile);
-        about = findViewById(R.id.profile);
+        contact = findViewById(R.id.contact);
+        notifications = findViewById(R.id.notifications);
+        about = findViewById(R.id.about);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

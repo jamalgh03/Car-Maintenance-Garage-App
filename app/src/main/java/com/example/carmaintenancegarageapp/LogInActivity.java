@@ -109,7 +109,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         // URL for login
-        String url = "http://192.168.0.59/CarMaintenance/login.php";
+        String url = "http://192.168.1.4/api/login.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 

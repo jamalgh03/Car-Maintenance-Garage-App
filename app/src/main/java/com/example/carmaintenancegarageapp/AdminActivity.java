@@ -160,7 +160,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private @NonNull JsonObjectRequest getJsonObjectRequest() {
-        String url = "http://10.10.10.21/api/requests_json.php";
+        String url = "http://192.168.1.4/api/requests_json.php";
         return new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -172,29 +172,24 @@ public class AdminActivity extends AppCompatActivity {
                             String pendingStr = response.getString("pending");
                             String workStr = response.getString("work");
 
-                            // Convert counts to integers
                             int all = Integer.parseInt(totalStr);
                             int ready = Integer.parseInt(readyStr);
                             int pending = Integer.parseInt(pendingStr);
                             int work = Integer.parseInt(workStr);
 
-                            // Update UI with counts
                             total_cars_num.setText(String.valueOf(all));
                             ready_cars_num.setText(String.valueOf(ready));
                             pending_cars_num.setText(String.valueOf(pending));
                             work_cars_num.setText(String.valueOf(work));
 
-                            // Extract rows array
                             rowsArray = response.getJSONArray("rows");
                             ArrayList<String> carRequests = new ArrayList<>();
 
-                            // Loop through the rows array and extract car details
                             for (int i = 0; i < rowsArray.length(); i++) {
                                 JSONObject row = rowsArray.getJSONObject(i);
                                 carRequests.add(formatCarInfo(row));
                             }
 
-                            // Initialize the adapter
                             adapter = new ArrayAdapter<>(
                                     AdminActivity.this,
                                     R.layout.list_item_background,
@@ -202,7 +197,6 @@ public class AdminActivity extends AppCompatActivity {
                                     carRequests
                             );
 
-                            // Set the adapter to the ListView
                             lst.setAdapter(adapter);
 
                         } catch (JSONException e) {
@@ -241,9 +235,9 @@ public class AdminActivity extends AppCompatActivity {
                     String status = row.getString("status");
 
                     if (id.toLowerCase().contains(query.toLowerCase()) ||
-                            userId.toLowerCase().contains(query.toLowerCase()) ||
-                            carName.toLowerCase().contains(query.toLowerCase()) ||
-                            status.toLowerCase().contains(query.toLowerCase())) {
+                        userId.toLowerCase().contains(query.toLowerCase()) ||
+                        carName.toLowerCase().contains(query.toLowerCase()) ||
+                        status.toLowerCase().contains(query.toLowerCase())) {
                         filteredCarRequests.add(formatCarInfo(row));
                     }
                 } catch (JSONException e) {
@@ -276,24 +270,16 @@ public class AdminActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
     private void showMenu(View view, int position) {
-        // Create a PopupMenu
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
-
-        // Get the selected item
         String selectedItem = adapter.getItem(position);
-
-        // Extract the current status from the selected item
         String currentStatus = extractStatus(selectedItem);
-
-        // Get the menu items
         Menu menu = popupMenu.getMenu();
         MenuItem pendingItem = menu.findItem(R.id.menu_pending);
         MenuItem workItem = menu.findItem(R.id.menu_work);
         MenuItem readyItem = menu.findItem(R.id.menu_ready);
         MenuItem deleteItem = menu.findItem(R.id.menu_delete);
 
-        // Enable/disable menu items based on the current status
         if (currentStatus.equals("Pending")) {
             pendingItem.setEnabled(false);
             workItem.setEnabled(true);
@@ -311,7 +297,6 @@ public class AdminActivity extends AppCompatActivity {
             deleteItem.setEnabled(true);
         } else {
         }
-        // Set a click listener for menu items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -335,11 +320,9 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        // Show the menu
         popupMenu.show();
     }
     private void updateStatus(String item, String newStatus) {
-        // Find the item in the rowsArray and update its status
         for (int i = 0; i < rowsArray.length(); i++) {
             try {
                 JSONObject row = rowsArray.getJSONObject(i);
@@ -352,6 +335,7 @@ public class AdminActivity extends AppCompatActivity {
                     row.put("status", newStatus);
 
                     adapter.notifyDataSetChanged();
+                    updateStatusOnServer(id,status);
 
 
                     Toast.makeText(this, "Status updated to " + newStatus, Toast.LENGTH_SHORT).show();
@@ -381,7 +365,7 @@ public class AdminActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                     // Optionally, send an API request to delete the item on the server
-                    // deleteItemOnServer(id);
+                     deleteItemOnServer(id);
 
                     Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
                     break;
@@ -400,6 +384,13 @@ public class AdminActivity extends AppCompatActivity {
         }
         return "";
     }
+    private void updateStatusOnServer(String id, String status){
+
+    }
+    private void deleteItemOnServer(String id){
+
+    }
+
 }
 
 

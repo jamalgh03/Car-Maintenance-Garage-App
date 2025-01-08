@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         // Send data to the server
-        String url = "http://192.168.0.59/CarMaintenance/register.php";
+        String url = "http://192.168.1.4/api/register.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
