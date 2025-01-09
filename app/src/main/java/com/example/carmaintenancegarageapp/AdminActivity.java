@@ -85,6 +85,8 @@ public class AdminActivity extends AppCompatActivity {
                     filterSpinner.setSelection(0);
                     filterData(query);
                 }
+                refreshData();
+
             }
         });
 
@@ -160,7 +162,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private @NonNull JsonObjectRequest getJsonObjectRequest() {
-        String url = "http://192.168.0.100/api/requests_json.php";
+        String url = "http://10.10.10.22/api/requests_json.php";
         return new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -280,23 +282,33 @@ public class AdminActivity extends AppCompatActivity {
         MenuItem readyItem = menu.findItem(R.id.menu_ready);
         MenuItem deleteItem = menu.findItem(R.id.menu_delete);
 
-        if (currentStatus.equals("Pending")) {
-            pendingItem.setEnabled(false);
-            workItem.setEnabled(true);
-            readyItem.setEnabled(false);
-            deleteItem.setEnabled(true);
-        } else if (currentStatus.equals("Work")) {
-            pendingItem.setEnabled(false);
-            workItem.setEnabled(false);
-            readyItem.setEnabled(true);
-            deleteItem.setEnabled(true);
-        } else if (currentStatus.equals("Ready")) {
-            pendingItem.setEnabled(false);
-            workItem.setEnabled(false);
-            readyItem.setEnabled(false);
-            deleteItem.setEnabled(true);
-        } else {
+        switch (currentStatus) {
+            case "pending":
+                pendingItem.setEnabled(false);
+                workItem.setEnabled(true);
+                readyItem.setEnabled(false);
+                deleteItem.setEnabled(true);
+                break;
+            case "work":
+                pendingItem.setEnabled(false);
+                workItem.setEnabled(false);
+                readyItem.setEnabled(true);
+                deleteItem.setEnabled(true);
+                break;
+            case "ready":
+                pendingItem.setEnabled(false);
+                workItem.setEnabled(false);
+                readyItem.setEnabled(false);
+                deleteItem.setEnabled(true);
+                break;
+            default:
+                pendingItem.setEnabled(false);
+                workItem.setEnabled(false);
+                readyItem.setEnabled(false);
+                deleteItem.setEnabled(true);
+                break;
         }
+
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -320,6 +332,15 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        // Set a dismiss listener to handle clicks outside the menu
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                // Do nothing or add any cleanup logic if needed
+            }
+        });
+
+        // Show the popup menu
         popupMenu.show();
     }
     private void updateStatus(String item, String newStatus) {
@@ -335,7 +356,7 @@ public class AdminActivity extends AppCompatActivity {
                     row.put("status", newStatus);
 
                     adapter.notifyDataSetChanged();
-                    updateStatusOnServer(id,status);
+                    updateStatusOnServer(id,newStatus);
 
 
                     Toast.makeText(this, "Status updated to " + newStatus, Toast.LENGTH_SHORT).show();
@@ -384,13 +405,91 @@ public class AdminActivity extends AppCompatActivity {
         }
         return "";
     }
-    private void updateStatusOnServer(String id, String status){
+    private void updateStatusOnServer(String id, String newStatus) {
+        String url = "http://10.10.10.22/api/update_status.php"; // Replace with your server URL
 
+        // Create a JSON object with the parameters
+        JSONObject params = new JSONObject();
+        try {
+            params.put("id", id);
+            params.put("status", newStatus);
+        } catch (JSONException e) {
+            Log.d("Error", "JSON Exception: " + e.toString());
+            return;
+        }
+
+        // Create a POST request
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            if (success) {
+                                Toast.makeText(AdminActivity.this, "Status updated successfully", Toast.LENGTH_SHORT).show();
+                                refreshData(); // Refresh the data after updating the status
+                            } else {
+                                String message = response.optString("message", "Failed to update status");
+                                Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            Log.d("Error", "JSON Exception: " + e.toString());
+                            Toast.makeText(AdminActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error_json", "Volley Error: " + error.toString());
+                        Toast.makeText(AdminActivity.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Add the request to the queue
+        queue.add(request);
     }
-    private void deleteItemOnServer(String id){
+    private void deleteItemOnServer(String id) {
+        String url = "http://10.10.10.22/api/delete_item.php?id=" + id; // Replace with your server URL
 
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            if (success) {
+                                Toast.makeText(AdminActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                                refreshData();
+                            } else {
+                                String message = response.optString("message", "Failed to delete item");
+                                Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            Log.d("Error", "JSON Exception: " + e.toString());
+                            Toast.makeText(AdminActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error_json", "Volley Error: " + error.toString());
+                        Toast.makeText(AdminActivity.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
     }
+    private void refreshData() {
 
+        if (adapter != null) {
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+        }
+        JsonObjectRequest request = getJsonObjectRequest();
+        queue.add(request);
+    }
 }
 
 
