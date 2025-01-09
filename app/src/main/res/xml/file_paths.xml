@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- يسمح بالوصول إلى جميع الملفات داخل دليل ملفات التطبيق الخارجية -->
+    <external-files-path name="external_files" path="." />
+</paths>

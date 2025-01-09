@@ -20,4 +20,7 @@
     <string name="save_and_log_out">Save and log out</string>
     <string name="revenue_icon">Revenue Icon</string>
     <string name="car_icon">Car Icon</string>
+    <string name="pending_icon">Pending Requests Icon</string>
+    <string name="users_icon">Users Icon</string>
+    <string name="service_icon">Service Icon</string>
 </resources>

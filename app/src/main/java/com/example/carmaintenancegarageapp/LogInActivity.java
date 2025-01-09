@@ -1,6 +1,7 @@
 package com.example.carmaintenancegarageapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -17,8 +18,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,10 +35,29 @@ public class LogInActivity extends AppCompatActivity {
     private ImageButton openedEyeButton, closedEyeButton;
     private boolean isPasswordVisible = false;
 
+    // اسم ملف SharedPreferences
+    private static final String PREFS_NAME = "MyPrefs";
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        // التحقق من حالة تسجيل الدخول
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+            String role = sharedPreferences.getString("role", "user");
+            if (role.equals("admin")) {
+                startActivity(new Intent(LogInActivity.this, AdminActivity.class));
+            } else {
+                startActivity(new Intent(LogInActivity.this, MainActivity.class));
+            }
+            finish();
+            return;
+        }
 
         // Initialize views
         emailEditText = findViewById(R.id.emailEditText);
@@ -90,7 +114,7 @@ public class LogInActivity extends AppCompatActivity {
         } else {
             // Show password
             passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
-            passwordEditText.setSelection(passwordEditText.getText().length()); // Keep cursor at the end
+            passwordEditText.setSelection(passwordEditText.getText().length());
             closedEyeButton.setVisibility(View.GONE);
             openedEyeButton.setVisibility(View.VISIBLE);
             isPasswordVisible = true;
@@ -109,7 +133,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         // URL for login
-        String url = "http://192.168.1.4/api/login.php";
+        String url = "http://192.168.0.100/api/login.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -120,18 +144,25 @@ public class LogInActivity extends AppCompatActivity {
                         // Handle server response
                         Log.d("LogInResponse", response);
 
-                        if (response.contains("admin")) {
-                            Toast.makeText(LogInActivity.this, "Welcome, Admin!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LogInActivity.this, AdminActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else if (response.contains("user")) {
-                            Toast.makeText(LogInActivity.this, "Welcome, User!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(LogInActivity.this, "Invalid credentials!", Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+
+                            if (success) {
+                                String role = jsonResponse.getString("role");
+                                String message = jsonResponse.getString("message");
+                                int userId = jsonResponse.getInt("user_id");
+
+                                // جلب بيانات المستخدم من السيرفر بعد تسجيل الدخول
+                                fetchUserDetails(userId, role, message);
+                            } else {
+                                String message = jsonResponse.getString("message");
+                                Toast.makeText(LogInActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(LogInActivity.this, "خطأ في قراءة البيانات", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -155,5 +186,63 @@ public class LogInActivity extends AppCompatActivity {
 
         // Add the request to the Volley queue
         queue.add(stringRequest);
+    }
+
+    private void fetchUserDetails(int userId, String role, String message) {
+        // URL for fetching user details
+        String url = "http://192.168.0.100/api/getUserProfile.php?user_id=" + userId;
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                response -> {
+                    try {
+                        Log.d("UserDetailsResponse", response.toString());
+
+                        if (response.getString("status").equals("success")) {
+                            JSONObject data = response.getJSONObject("data");
+                            String name = data.getString("name");
+                            String email = data.getString("email");
+                            String phone = data.getString("phone");
+
+                            // حفظ البيانات في SharedPreferences
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("isLoggedIn", true);
+                            editor.putString("role", role);
+                            editor.putInt("user_id", userId);
+                            editor.putString("name", name);
+                            editor.putString("email", email);
+                            editor.putString("phone", phone);
+                            editor.apply();
+
+                            Toast.makeText(LogInActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                            if (role.equals("admin")) {
+                                Intent intent = new Intent(LogInActivity.this, AdminActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            finish();
+                        } else {
+                            String errorMsg = response.getString("message");
+                            Toast.makeText(LogInActivity.this, "خطأ: " + errorMsg, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(LogInActivity.this, "خطأ في قراءة البيانات", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    Toast.makeText(LogInActivity.this, "فشل الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                    Log.e("UserDetailsError", error.toString());
+                }
+        );
+
+        queue.add(jsonObjectRequest);
     }
 }

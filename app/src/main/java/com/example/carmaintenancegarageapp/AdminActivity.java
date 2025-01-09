@@ -160,7 +160,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private @NonNull JsonObjectRequest getJsonObjectRequest() {
-        String url = "http://192.168.1.4/api/requests_json.php";
+        String url = "http://192.168.0.100/api/requests_json.php";
         return new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

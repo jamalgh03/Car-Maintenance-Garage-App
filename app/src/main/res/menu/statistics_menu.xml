@@ -4,11 +4,5 @@
         android:id="@+id/export_report"
         android:icon="@drawable/ic_export"
         android:title="Export Report"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Settings"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>
-

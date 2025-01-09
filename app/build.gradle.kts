@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation ("com.itextpdf:itext7-core:7.1.17")
 
     // Adding Volley library
     implementation("com.android.volley:volley:1.2.1")
