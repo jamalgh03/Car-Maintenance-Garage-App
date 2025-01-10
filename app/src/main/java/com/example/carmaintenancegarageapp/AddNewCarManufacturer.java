@@ -21,8 +21,6 @@ public class AddNewCarManufacturer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_car_manufacturer);
-        home = findViewById(R.id.adminhomenewmanufactor);
-        add_car_new_manufactor = findViewById(R.id.addcarnewmanufactor);
 
 
 

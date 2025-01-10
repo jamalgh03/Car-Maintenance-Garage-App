@@ -1,4 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,119 +8,62 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_background"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_background"
-            android:clipToOutline="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/jamal" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello, Jamal"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/subText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Car Maintenance Garage App"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-
     <TextView
-        android:id="@+id/chooseCarText"
+        android:id="@+id/chooseRequestText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:text="Choose the requset"
+        android:text="Choose the request"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="90dp" />
 
     <Spinner
-        android:id="@+id/carSpinner"
-        android:layout_width="match_parent"
+        android:id="@+id/requsetSpinner"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_below="@id/chooseCarText"
-        android:layout_marginTop="10dp"
         android:background="@drawable/spinner_background"
         android:popupBackground="#FFFFFF"
-        android:textColor="#00796B"/>
+        android:textColor="#00796B"
+        app:layout_constraintTop_toBottomOf="@id/chooseRequestText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/selectOperationsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/carSpinner"
-        android:layout_marginTop="10dp"
-        android:text="Select the service you want to preform"
+        android:text="Select the service you want to perform"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        app:layout_constraintTop_toBottomOf="@id/requsetSpinner"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp" />
 
+    <!-- Operations Spinner and Submit Button -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/operationsLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/selectOperationsText"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/selectOperationsText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp">
 
-        <CheckBox
-            android:id="@+id/checkboxOilChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Oil Change"
-            android:textColor="@android:color/white" />
-
-        <CheckBox
-            android:id="@+id/checkboxTireChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tire Change"
-            android:textColor="@android:color/white" />
-
-        <CheckBox
-            android:id="@+id/checkboxBatteryCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Battery Check"
-            android:textColor="@android:color/white" />
-
-        <CheckBox
-            android:id="@+id/checkboxEngineCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Engine Check"
-            android:textColor="@android:color/white" />
+        <Spinner
+            android:id="@+id/operationsSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/spinner_background"
+            android:popupBackground="#FFFFFF"
+            android:textColor="#00796B" />
 
         <Button
-            android:id="@+id/performOperationsButton"
+            android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -127,22 +72,24 @@
             android:padding="8dp"
             android:text="Submit"
             android:backgroundTint="#00796B"
-            android:textColor="@android:color/white"
-            android:textColorLink="@color/LightGray" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="249dp"
-        android:layout_height="77dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="7dp"
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bottom_bar_background"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:layout_centerHorizontal="true">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="7dp">
 
         <ImageButton
+            android:id="@+id/homeButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/button_background"
@@ -150,31 +97,5 @@
             android:scaleType="centerCrop"
             android:src="@drawable/home" />
 
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/button_background"
-            android:contentDescription="List"
-            android:scaleType="centerCrop"
-            android:src="@drawable/order" />
-
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/button_background"
-            android:contentDescription="Favorites"
-            android:scaleType="centerCrop"
-            android:src="@drawable/add" />
-
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/button_background"
-            android:contentDescription="Menu"
-            android:scaleType="centerCrop"
-            android:src="@drawable/manage" />
     </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

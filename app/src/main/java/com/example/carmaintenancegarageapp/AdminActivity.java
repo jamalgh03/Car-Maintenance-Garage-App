@@ -446,7 +446,6 @@ public class AdminActivity extends AppCompatActivity {
                     }
                 });
 
-        // Add the request to the queue
         queue.add(request);
     }
     private void deleteItemOnServer(String id) {

@@ -5,54 +5,106 @@
     android:layout_height="match_parent"
     android:background="@color/BlueGray"
     android:padding="16dp"
-    tools:context=".AddNewCarManufacturer">
+    tools:context=".MainActivity">
+
 
     <TextView
-        android:id="@+id/addManufacturerTitle"
+        android:id="@+id/writeCarNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="87dp"
         android:layout_marginStart="12dp"
-        android:text="Add New Car Manufacturer"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:text="Write the car number"
+        android:textColor="@color/LightGray"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/manufacturerNameInput"
+        android:id="@+id/carNumberEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/addManufacturerTitle"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/writeCarNumberText"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:hint="Manufacturer Name"
-        android:padding="12dp"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/uploadLogoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/manufacturerNameInput"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:backgroundTint="@color/darker_gray"
-        android:text="Upload Manufacturer Logo"
+        android:hint="Enter car number"
+        android:padding="10dp"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textColorHint="@color/LightGray"
+        android:textSize="14sp" />
+
+
+
+    <TextView
+        android:id="@+id/chooseUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/carNumberEditText"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="Choose the user"
+        android:textColor="@color/LightGray"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/userSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseUserText"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:padding="10dp"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="#FFFFFF"
+        android:textColor="#00796B" />
+
+    <TextView
+        android:id="@+id/chooseCarTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userSpinner"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:text="Choose the car type"
+        android:textColor="@color/LightGray"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/optionSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseCarTypeText"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:padding="10dp"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="#FFFFFF"
+        android:textColor="#00796B" />
+
+    <ListView
+        android:id="@+id/itemListView"
+        android:layout_width="353dp"
+        android:layout_height="213dp"
+        android:layout_below="@id/optionSpinner"
+        android:layout_marginTop="14dp"
+        android:background="@color/LightGray"
+        android:divider="@color/black"
+        android:dividerHeight="1dp"
+        android:padding="8dp" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@id/uploadLogoButton"
-        android:layout_marginTop="24dp"
+        android:layout_below="@id/itemListView"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/black"
-        android:text="Add Manufacturer"
+        android:padding="8dp"
+        android:text="Submit"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
@@ -69,7 +121,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageButton
-            android:id="@+id/adminhomenewmanufactor"
+            android:id="@+id/homeButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -78,6 +130,7 @@
             android:src="@drawable/home" />
 
         <ImageButton
+            android:id="@+id/listButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -88,7 +141,7 @@
             android:src="@drawable/order" />
 
         <ImageButton
-            android:id="@+id/addcarnewmanufactor"
+            android:id="@+id/favoritesButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_background"
@@ -97,6 +150,7 @@
             android:src="@drawable/add" />
 
         <ImageButton
+            android:id="@+id/menuButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
