@@ -1,70 +1,166 @@
 package com.example.carmaintenancegarageapp;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class AddCar extends AppCompatActivity {
+
+    private Spinner carNameSpinner;
+    private ListView modelListView;
+    private EditText carNumberEditText;
+    private SharedPreferences sharedPreferences;
+
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String FETCH_URL = "http://192.168.56.1/fetch_cars.php";
+    private static final String INSERT_URL = "http://192.168.56.1/insert_car.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_car);
-        Button submitButton = findViewById(R.id.submitButton);
-        submitButton.setOnClickListener(new View.OnClickListener() {
+
+        carNameSpinner = findViewById(R.id.optionSpinner);
+        modelListView = findViewById(R.id.itemListView);
+        carNumberEditText = findViewById(R.id.carNumberEditText);
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        loadCarNames();
+        carNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCar.this, MainActivity.class); // Replace 'AnotherActivity' with the target activity
-                startActivity(intent);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCarName = parent.getItemAtPosition(position).toString();
+                loadCarModels(selectedCarName);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
-
-        ImageButton homeButton = findViewById(R.id.homeButton);
-        ImageButton requestButton = findViewById(R.id.listButton);
-        ImageButton carButton = findViewById(R.id.favoritesButton);
-        ImageButton profileButton = findViewById(R.id.menuButton);
-
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCar.this, MainActivity.class);
-                startActivity(intent);
-            }
+        modelListView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedModel = parent.getItemAtPosition(position).toString();
+            addCar(selectedModel);
         });
+    }
 
-        requestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCar.this, AddRequest.class);
-                startActivity(intent);
+
+    private void loadCarNames() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, FETCH_URL, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                ArrayList<String> carNames = new ArrayList<>();
+
+                Iterator<String> keys = jsonObject.keys();
+                while (keys.hasNext()) {
+                    carNames.add(keys.next());
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, carNames);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                carNameSpinner.setAdapter(adapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error parsing car names", Toast.LENGTH_SHORT).show();
             }
-        });
+        }, error -> Toast.makeText(this, "Error loading car names", Toast.LENGTH_SHORT).show());
 
-        carButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCar.this, AddCar.class);
-                startActivity(intent);
+        queue.add(stringRequest);
+    }
+
+
+    private void loadCarModels(String carName) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, FETCH_URL, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                ArrayList<String> carModels = new ArrayList<>();
+
+                for (int i = 0; i < jsonObject.getJSONArray(carName).length(); i++) {
+                    carModels.add(jsonObject.getJSONArray(carName).getString(i));
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, carModels);
+                modelListView.setAdapter(adapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error parsing car models", Toast.LENGTH_SHORT).show();
             }
-        });
+        }, error -> Toast.makeText(this, "Error loading car models", Toast.LENGTH_SHORT).show());
 
-        profileButton.setOnClickListener(new View.OnClickListener() {
+        queue.add(stringRequest);
+    }
+
+    private void addCar(String selectedModel) {
+        String carNumber = carNumberEditText.getText().toString().trim();
+        String carName = carNameSpinner.getSelectedItem().toString();
+        String email = sharedPreferences.getString("email", "");  // Auto-retrieved email
+
+        if (carNumber.isEmpty()) {
+            Toast.makeText(this, "Please enter a car number.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERT_URL,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        String status = jsonResponse.getString("status");
+
+                        if (status.equals("success")) {
+                            Toast.makeText(this, "Car added successfully!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String message = jsonResponse.getString("message");
+                            Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Error parsing server response", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "Failed to add car", Toast.LENGTH_SHORT).show()) {
+
             @Override
-           public void onClick(View v) {
-                Intent intent = new Intent(AddCar.this, MoreOptions.class);
-                startActivity(intent);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("car_name", carName);
+                params.put("module", selectedModel);  // Selected model
+                params.put("car_number", carNumber);
+                params.put("email", email);
+                return params;
             }
-        });
+        };
 
+        queue.add(stringRequest);
     }
 }

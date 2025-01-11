@@ -13,13 +13,16 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="WelcomePageActivity">
+      <SelectionState runConfigName="AddRequestAdmin">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="AdminActivity">
+      <SelectionState runConfigName="AddCar">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="EditRequest">
+      <SelectionState runConfigName="AddCarAdmin">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="AddRequest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

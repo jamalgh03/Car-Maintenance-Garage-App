@@ -99,6 +99,7 @@
         android:layout_marginEnd="12dp"
         android:padding="10dp"
         android:background="@drawable/spinner_background"
+
         android:popupBackground="#FFFFFF"
         android:textColor="#00796B" />
 
@@ -113,17 +114,7 @@
         android:dividerHeight="1dp"
         android:padding="8dp" />
 
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_below="@id/itemListView"
-        android:layout_marginTop="35dp"
-        android:layout_centerHorizontal="true"
-        android:padding="8dp"
-        android:text="Submit"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+
 
     <LinearLayout
         android:id="@+id/bottomBar"
