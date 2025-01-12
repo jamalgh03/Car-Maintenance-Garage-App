@@ -1,5 +1,6 @@
 package com.example.carmaintenancegarageapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +33,6 @@ public class AddCarAdmin extends AppCompatActivity {
     private ListView modelListView;
     private EditText carNumberEditText;
 
-    // PHP URLs
     private static final String FETCH_USERS_URL = "http://192.168.56.1/fetch_users.php";
     private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_cars.php";
     private static final String INSERT_CAR_URL = "http://192.168.56.1/insert_car_admin.php";
@@ -42,16 +42,13 @@ public class AddCarAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car_admin);
 
-
         userSpinner = findViewById(R.id.userSpinner);
         carNameSpinner = findViewById(R.id.optionSpinner);
         modelListView = findViewById(R.id.itemListView);
         carNumberEditText = findViewById(R.id.carNumberEditText);
 
-
         loadUserEmails();
         loadCarNames();
-
 
         carNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,8 +58,7 @@ public class AddCarAdmin extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         modelListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -96,6 +92,7 @@ public class AddCarAdmin extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
 
     private void loadCarNames() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -148,6 +145,7 @@ public class AddCarAdmin extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+
     private void insertCarForUser(String selectedModel) {
         String carNumber = carNumberEditText.getText().toString().trim();
         String carName = carNameSpinner.getSelectedItem().toString();
@@ -168,6 +166,13 @@ public class AddCarAdmin extends AppCompatActivity {
 
                         if (status.equals("success")) {
                             Toast.makeText(this, "Car added successfully for " + selectedUserEmail, Toast.LENGTH_SHORT).show();
+
+                            // Redirect to AdminActivity after success
+                            Intent intent = new Intent(AddCarAdmin.this, AdminActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+
                         } else {
                             String message = jsonResponse.getString("message");
                             Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();

@@ -3,7 +3,6 @@ package com.example.carmaintenancegarageapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +30,7 @@ public class AddRequest extends AppCompatActivity {
     private CheckBox checkboxOilChange, checkboxTireChange, checkboxBatteryCheck, checkboxEngineCheck;
     private Button performOperationsButton;
     private SharedPreferences sharedPreferences;
+
     private static final String PREFS_NAME = "MyPrefs";
     private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_user_cars.php";
     private static final String INSERT_REQUEST_URL = "http://192.168.56.1/insert_request.php";
@@ -39,17 +39,23 @@ public class AddRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
+
         carSpinner = findViewById(R.id.carSpinner);
         checkboxOilChange = findViewById(R.id.checkboxOilChange);
         checkboxTireChange = findViewById(R.id.checkboxTireChange);
         checkboxBatteryCheck = findViewById(R.id.checkboxBatteryCheck);
         checkboxEngineCheck = findViewById(R.id.checkboxEngineCheck);
         performOperationsButton = findViewById(R.id.performOperationsButton);
+
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
         loadUserCars();
+
         performOperationsButton.setOnClickListener(v -> submitRequest());
+
         initializeNavigationButtons();
     }
+
 
     private void loadUserCars() {
         String userEmail = sharedPreferences.getString("email", "");
@@ -80,6 +86,7 @@ public class AddRequest extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+
     private void submitRequest() {
         String selectedCar = carSpinner.getSelectedItem().toString();
         String userEmail = sharedPreferences.getString("email", "");
@@ -101,12 +108,20 @@ public class AddRequest extends AppCompatActivity {
         }
     }
 
+
     private void insertServiceRequest(String carNumber, String email, String serviceName) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERT_REQUEST_URL,
-                response -> Toast.makeText(this, "Request submitted for " + serviceName, Toast.LENGTH_SHORT).show(),
-                error -> Toast.makeText(this, "Failed to submit request", Toast.LENGTH_SHORT).show()) {
+                response -> {
+                    Toast.makeText(this, "Request submitted for " + serviceName, Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(AddRequest.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+
+                }, error -> Toast.makeText(this, "Failed to submit request", Toast.LENGTH_SHORT).show()) {
 
             @Override
             protected Map<String, String> getParams() {
@@ -120,6 +135,8 @@ public class AddRequest extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
+
     private void initializeNavigationButtons() {
         ImageButton homeButton = findViewById(R.id.homeButton);
         ImageButton requestButton = findViewById(R.id.listButton);

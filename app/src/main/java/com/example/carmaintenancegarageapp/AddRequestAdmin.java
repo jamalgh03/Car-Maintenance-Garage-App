@@ -29,6 +29,8 @@ public class AddRequestAdmin extends AppCompatActivity {
     private Spinner userSpinner, carSpinner;
     private CheckBox checkboxOilChange, checkboxTireChange, checkboxBatteryCheck, checkboxEngineCheck;
     private Button performOperationsButton;
+
+
     private static final String FETCH_USERS_URL = "http://192.168.56.1/fetch_all_users.php";
     private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_cars_by_user.php";
     private static final String INSERT_REQUEST_URL = "http://192.168.56.1/insert_admin_request.php";
@@ -37,6 +39,7 @@ public class AddRequestAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request_admin);
+
         userSpinner = findViewById(R.id.userSpinner);
         carSpinner = findViewById(R.id.carSpinner);
         checkboxOilChange = findViewById(R.id.checkboxOilChange);
@@ -44,7 +47,9 @@ public class AddRequestAdmin extends AppCompatActivity {
         checkboxBatteryCheck = findViewById(R.id.checkboxBatteryCheck);
         checkboxEngineCheck = findViewById(R.id.checkboxEngineCheck);
         performOperationsButton = findViewById(R.id.performOperationsButton);
+
         loadUserEmails();
+
         userSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
@@ -55,9 +60,11 @@ public class AddRequestAdmin extends AppCompatActivity {
             @Override
             public void onNothingSelected(android.widget.AdapterView<?> parent) {}
         });
+
         performOperationsButton.setOnClickListener(v -> submitRequest());
         initializeNavigationButtons();
     }
+
 
     private void loadUserEmails() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -87,7 +94,6 @@ public class AddRequestAdmin extends AppCompatActivity {
 
     private void loadUserCars(String email) {
         RequestQueue queue = Volley.newRequestQueue(this);
-
         String url = FETCH_CARS_URL + "?email=" + email;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
@@ -111,6 +117,8 @@ public class AddRequestAdmin extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
+
     private void submitRequest() {
         String selectedUser = userSpinner.getSelectedItem().toString();
         String selectedCar = carSpinner.getSelectedItem().toString();
@@ -132,12 +140,21 @@ public class AddRequestAdmin extends AppCompatActivity {
         }
     }
 
+
     private void insertServiceRequest(String email, String carNumber, String serviceName) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERT_REQUEST_URL,
-                response -> Toast.makeText(this, "Request submitted for " + serviceName, Toast.LENGTH_SHORT).show(),
-                error -> Toast.makeText(this, "Failed to submit request", Toast.LENGTH_SHORT).show()) {
+                response -> {
+                    Toast.makeText(this, "Request submitted for " + serviceName, Toast.LENGTH_SHORT).show();
+
+                    // Redirect to AdminActivity after success
+                    Intent intent = new Intent(AddRequestAdmin.this, AdminActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();  // Close AddRequestAdmin
+
+                }, error -> Toast.makeText(this, "Failed to submit request", Toast.LENGTH_SHORT).show()) {
 
             @Override
             protected Map<String, String> getParams() {
@@ -151,6 +168,7 @@ public class AddRequestAdmin extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
 
     private void initializeNavigationButtons() {
         ImageButton homeButton = findViewById(R.id.homeButton);

@@ -463,7 +463,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private void fetchUserDetails(String userEmail, String role, String message) {
         // URL لجلب تفاصيل المستخدم باستخدام email والدور
-        String url = "http://192.168.0.59/api/getUserProfile.php?email=" + userEmail + "&role=" + role;
+        String url = "http://192.168.56.1/getUserProfile.php?email=" + userEmail + "&role=" + role;
 
         Log.d("FetchUserDetails", "URL: " + url); // سجل عنوان الـ URL
 

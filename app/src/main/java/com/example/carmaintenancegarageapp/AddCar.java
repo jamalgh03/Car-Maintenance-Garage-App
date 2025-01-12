@@ -1,5 +1,6 @@
 package com.example.carmaintenancegarageapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,7 @@ public class AddCar extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         loadCarNames();
+
         carNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -55,9 +57,7 @@ public class AddCar extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         modelListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -121,7 +121,7 @@ public class AddCar extends AppCompatActivity {
     private void addCar(String selectedModel) {
         String carNumber = carNumberEditText.getText().toString().trim();
         String carName = carNameSpinner.getSelectedItem().toString();
-        String email = sharedPreferences.getString("email", "");  // Auto-retrieved email
+        String email = sharedPreferences.getString("email", "");  // Get the logged-in user's email
 
         if (carNumber.isEmpty()) {
             Toast.makeText(this, "Please enter a car number.", Toast.LENGTH_SHORT).show();
@@ -138,6 +138,13 @@ public class AddCar extends AppCompatActivity {
 
                         if (status.equals("success")) {
                             Toast.makeText(this, "Car added successfully!", Toast.LENGTH_SHORT).show();
+
+
+                            Intent intent = new Intent(AddCar.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+
                         } else {
                             String message = jsonResponse.getString("message");
                             Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
@@ -154,7 +161,7 @@ public class AddCar extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("car_name", carName);
-                params.put("module", selectedModel);  // Selected model
+                params.put("module", selectedModel);
                 params.put("car_number", carNumber);
                 params.put("email", email);
                 return params;
