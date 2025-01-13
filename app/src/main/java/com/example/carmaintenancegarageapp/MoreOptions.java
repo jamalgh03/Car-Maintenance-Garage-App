@@ -23,7 +23,6 @@ public class MoreOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_options);
         profile = findViewById(R.id.profile);
-        contact = findViewById(R.id.contact);
         notifications = findViewById(R.id.notifications);
         about = findViewById(R.id.about);
 
@@ -43,14 +42,7 @@ public class MoreOptions extends AppCompatActivity {
 
             }
         });
-        contact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ig = new Intent(MoreOptions.this, Contact.class);
-                startActivity(ig);
 
-            }
-        });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

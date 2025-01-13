@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BlueGray"
+    android:background="@color/DarkSeaGreen"
     android:padding="16dp"
     tools:context=".MainActivity">
 
@@ -68,10 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:background="@drawable/button_background"
             android:padding="8dp"
             android:text="Submit"
-            android:backgroundTint="#00796B"
+            android:backgroundTint="@color/DarkSlateGrey"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

@@ -1,46 +1,72 @@
 package com.example.carmaintenancegarageapp;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.widget.ImageView;
-import androidx.annotation.Nullable;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddService extends AppCompatActivity {
-    private static final int PICK_IMAGE = 1;
-    private ImageView uploadButton;
+    private Button submitButton;
+    private EditText serviceNameEditText;
+    private static final String UPLOAD_URL = "http://172.19.40.34/api/AddServices.php"; // استبدل بعنوان API الخاص بك
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service);
 
-        // Find the upload button
-        uploadButton = findViewById(R.id.uploadButton);
+        // Find the UI elements
+        submitButton = findViewById(R.id.submitButton);
+        serviceNameEditText = findViewById(R.id.editText);
 
-        // Set click listener to pick image
-        uploadButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, PICK_IMAGE);
+        // Set click listener to submit data
+        submitButton.setOnClickListener(v -> {
+            String serviceName = serviceNameEditText.getText().toString().trim();
+            if (!serviceName.isEmpty()) {
+                addServiceToServer(serviceName);
+            } else {
+                Toast.makeText(this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void addServiceToServer(String serviceName) {
+        // Send data to server using Volley
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String message = jsonObject.getString("message");
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show()) {
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            try {
-                // Convert image to Bitmap and display it
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                uploadButton.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("service_name", serviceName); // Add the service name
+                return params;
             }
-        }
+        };
+
+        requestQueue.add(stringRequest);
     }
 }

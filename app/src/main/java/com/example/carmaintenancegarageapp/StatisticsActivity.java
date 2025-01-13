@@ -390,8 +390,7 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void fetchStatistics() {
-        // تأكد من أن عنوان URL صحيح ومحدث ليشير إلى ملف الـ API في الخادم الجديد
-        String url = "http://192.168.0.59/api/getStatistics.php";
+        String url = "http://172.19.40.34/api/getStatistics.php";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,

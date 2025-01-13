@@ -207,7 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void fetchUserProfile(String email, String role) {
-        String url = "http://192.168.0.59/api/getUserProfile.php?email=" + email; // استخدام email بدلاً من user_id
+        String url = "http://172.19.40.34/api/getUserProfile.php?email=" + email; // استخدام email بدلاً من user_id
 
         RequestQueue queue = Volley.newRequestQueue(this);
 

@@ -32,8 +32,8 @@ public class AddRequest extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     private static final String PREFS_NAME = "MyPrefs";
-    private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_user_cars.php";
-    private static final String INSERT_REQUEST_URL = "http://192.168.56.1/insert_request.php";
+    private static final String FETCH_CARS_URL = "http://172.19.40.34/api/fetch_user_cars.php";
+    private static final String INSERT_REQUEST_URL = "http://172.19.40.34/api/insert_request.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

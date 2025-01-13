@@ -2,54 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BlueGray"
+    android:background="@color/DarkSeaGreen"
     android:padding="16dp"
     tools:context=".AddCarAdmin">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_background"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_background"
-            android:clipToOutline="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/jamal" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello, Jamal"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/subText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Car Maintenance Garage App"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
-
 
 
     <TextView
@@ -165,6 +120,8 @@
             android:layout_marginTop="16dp"
             android:text="Submit"
             android:textSize="16sp"
+            android:backgroundTint="@color/DarkSlateGrey"
+
             android:textColor="@android:color/white"
             android:padding="8dp" />
     </LinearLayout>

@@ -69,7 +69,7 @@ public class EditRequest extends AppCompatActivity {
     }
 
     private JsonObjectRequest getJsonObjectRequest() {
-        String url = "http://172.26.32.1/api/getallrequests_json.php";
+        String url = "http://172.19.40.34/api/getallrequests_json.php";
         return new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -155,7 +155,7 @@ public class EditRequest extends AppCompatActivity {
     }
 
     private void updateRequestService(String requestId, String newServiceName) {
-        String url = "http://172.26.32.1/api/update_request_service.php";
+        String url = "http://172.19.40.34/api/update_request_service.php";
 
         Log.d("RequestParams", "request_id: " + requestId + ", new_service_name: " + newServiceName);
 

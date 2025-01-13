@@ -31,9 +31,9 @@ public class AddRequestAdmin extends AppCompatActivity {
     private Button performOperationsButton;
 
 
-    private static final String FETCH_USERS_URL = "http://192.168.56.1/fetch_all_users.php";
-    private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_cars_by_user.php";
-    private static final String INSERT_REQUEST_URL = "http://192.168.56.1/insert_admin_request.php";
+    private static final String FETCH_USERS_URL = "http://172.19.40.34/apifetch_all_users.php";
+    private static final String FETCH_CARS_URL = "http://172.19.40.34/api/fetch_cars_by_user.php";
+    private static final String INSERT_REQUEST_URL = "http://172.19.40.34/api/insert_admin_request.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

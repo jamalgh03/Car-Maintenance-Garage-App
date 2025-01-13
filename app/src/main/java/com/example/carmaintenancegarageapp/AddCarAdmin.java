@@ -33,9 +33,9 @@ public class AddCarAdmin extends AppCompatActivity {
     private ListView modelListView;
     private EditText carNumberEditText;
 
-    private static final String FETCH_USERS_URL = "http://192.168.56.1/fetch_users.php";
-    private static final String FETCH_CARS_URL = "http://192.168.56.1/fetch_cars.php";
-    private static final String INSERT_CAR_URL = "http://192.168.56.1/insert_car_admin.php";
+    private static final String FETCH_USERS_URL = "http://172.19.40.34/api/fetch_users.php";
+    private static final String FETCH_CARS_URL = "http://172.19.40.34/api/fetch_cars.php";
+    private static final String INSERT_CAR_URL = "http://172.19.40.34/api/insert_car_admin.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

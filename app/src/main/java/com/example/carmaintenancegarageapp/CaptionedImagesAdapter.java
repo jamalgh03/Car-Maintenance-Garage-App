@@ -10,16 +10,16 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 
-public class CaptionedImagesAdapter
-        extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
+import java.util.List;
 
-    private String[] captions;
-    private int[] imageIds;
+public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
 
-    public CaptionedImagesAdapter(String[] captions, int[] imageIds) {
-        this.captions = captions;
-        this.imageIds = imageIds;
+    private List<ServiceCar> serviceCars;
+
+    public CaptionedImagesAdapter(List<ServiceCar> serviceCars) {
+        this.serviceCars = serviceCars;
     }
 
     @Override
@@ -34,22 +34,23 @@ public class CaptionedImagesAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
-        ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
-        Drawable dr = ContextCompat.getDrawable(cardView.getContext(), imageIds[position]);
-        imageView.setImageDrawable(dr);
-        TextView txt = (TextView) cardView.findViewById(R.id.txtName);
-        txt.setText(captions[position]);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-            }
+        ImageView imageView = cardView.findViewById(R.id.image);
+        TextView txt = cardView.findViewById(R.id.txtName);
+
+        ServiceCar serviceCar = serviceCars.get(position);
+        txt.setText(serviceCar.getName());
+
+        Glide.with(cardView.getContext())
+                .load(serviceCar.getImageUrl())
+                .into(imageView);
+
+        cardView.setOnClickListener(v -> {
         });
     }
 
     @Override
     public int getItemCount() {
-        return captions.length;
+        return serviceCars.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,7 +60,5 @@ public class CaptionedImagesAdapter
             super(cardView);
             this.cardView = cardView;
         }
-
     }
-
 }

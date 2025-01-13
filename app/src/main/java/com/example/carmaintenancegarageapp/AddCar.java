@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,10 +34,10 @@ public class AddCar extends AppCompatActivity {
     private ListView modelListView;
     private EditText carNumberEditText;
     private SharedPreferences sharedPreferences;
-
+ImageButton homeButton , listButton , AddButton , menuButton ;
     private static final String PREFS_NAME = "MyPrefs";
-    private static final String FETCH_URL = "http://192.168.56.1/fetch_cars.php";
-    private static final String INSERT_URL = "http://192.168.56.1/insert_car.php";
+    private static final String FETCH_URL = "http://172.19.40.34/api/fetch_cars.php";
+    private static final String INSERT_URL = "http://172.19.40.34/api/insert_car.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,18 @@ public class AddCar extends AppCompatActivity {
         modelListView = findViewById(R.id.itemListView);
         carNumberEditText = findViewById(R.id.carNumberEditText);
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        menuButton = findViewById(R.id.menuButton) ;
+
+
+
+
+
+
+
+
+
 
         loadCarNames();
-
         carNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -56,8 +67,11 @@ public class AddCar extends AppCompatActivity {
                 loadCarModels(selectedCarName);
             }
 
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
 
         modelListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -121,7 +135,7 @@ public class AddCar extends AppCompatActivity {
     private void addCar(String selectedModel) {
         String carNumber = carNumberEditText.getText().toString().trim();
         String carName = carNameSpinner.getSelectedItem().toString();
-        String email = sharedPreferences.getString("email", "");  // Get the logged-in user's email
+        String email = sharedPreferences.getString("email", "");  // Auto-retrieved email
 
         if (carNumber.isEmpty()) {
             Toast.makeText(this, "Please enter a car number.", Toast.LENGTH_SHORT).show();
@@ -138,13 +152,6 @@ public class AddCar extends AppCompatActivity {
 
                         if (status.equals("success")) {
                             Toast.makeText(this, "Car added successfully!", Toast.LENGTH_SHORT).show();
-
-
-                            Intent intent = new Intent(AddCar.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-
                         } else {
                             String message = jsonResponse.getString("message");
                             Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
@@ -161,7 +168,7 @@ public class AddCar extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("car_name", carName);
-                params.put("module", selectedModel);
+                params.put("module", selectedModel);  // Selected model
                 params.put("car_number", carNumber);
                 params.put("email", email);
                 return params;

@@ -60,7 +60,7 @@ public class AddNewCarManufacturer extends AppCompatActivity {
     }
 
     private void addNewCar(String carName, String carModel) {
-        String url = "http://172.26.32.1/api/addnewcarmanufacturer.php";
+        String url = "http://172.19.40.34/api/addnewcarmanufacturer.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

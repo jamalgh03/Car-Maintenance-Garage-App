@@ -63,13 +63,10 @@ public class AdminActivity extends AppCompatActivity {
         pending_cars_num = findViewById(R.id.totalpendingcarsnum);
         filterSpinner = findViewById(R.id.filterSpinner);
         lst = findViewById(R.id.listView);
-
         queue = Volley.newRequestQueue(this);
-
         if (savedInstanceState != null) {
-            // Restore data
             try {
-                String rowsArrayString = savedInstanceState .getString("rowsArray");
+                String rowsArrayString = savedInstanceState.getString("rowsArray");
                 if (rowsArrayString != null) {
                     rowsArray = new JSONArray(rowsArrayString);
                     total_cars_num.setText(savedInstanceState.getString("totalCars"));
@@ -101,6 +98,7 @@ public class AdminActivity extends AppCompatActivity {
                 showMenu(view, position);
             }
         });
+
         searchImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,12 +106,12 @@ public class AdminActivity extends AppCompatActivity {
                 if (query.isEmpty()) {
                     resetListView();
                 } else {
-                    filterSpinner.setSelection(0);
+                    filterSpinner.setSelection(0); // Reset the filter spinner to "All"
                     filterData(query);
                 }
-                refreshData();
             }
         });
+
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -122,13 +120,69 @@ public class AdminActivity extends AppCompatActivity {
         );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(spinnerAdapter);
-
-        // Set up button click listeners
         add_request.setOnClickListener(v -> startActivity(new Intent(AdminActivity.this, AddRequestAdmin.class)));
         edit_request_admin.setOnClickListener(v -> startActivity(new Intent(AdminActivity.this, EditRequest.class)));
         add_car_admin.setOnClickListener(v -> startActivity(new Intent(AdminActivity.this, AddAdmin.class)));
         notifications.setOnClickListener(v -> startActivity(new Intent(AdminActivity.this, Notfication.class)));
         stats.setOnClickListener(v -> startActivity(new Intent(AdminActivity.this, StatisticsActivity.class)));
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Ensure the adapter is initialized
+                if (adapter == null) {
+                    Log.e("Error", "Adapter is null");
+                    return;
+                }
+
+                String selectedFilter = parent.getItemAtPosition(position).toString();
+
+                ArrayList<String> filteredCarRequests = new ArrayList<>();
+                if (rowsArray != null) {
+                    for (int i = 0; i < rowsArray.length(); i++) {
+                        try {
+                            JSONObject row = rowsArray.getJSONObject(i);
+                            String status = row.getString("status");
+
+                            switch (selectedFilter) {
+                                case "All":
+                                    filteredCarRequests.add(formatCarInfo(row));
+                                    break;
+                                case "Ready":
+                                    if (status.equalsIgnoreCase("ready")) {
+                                        filteredCarRequests.add(formatCarInfo(row));
+                                    }
+                                    break;
+                                case "Pending":
+                                    if (status.equalsIgnoreCase("pending")) {
+                                        filteredCarRequests.add(formatCarInfo(row));
+                                    }
+                                    break;
+                                case "Work":
+                                    if (status.equalsIgnoreCase("work")) {
+                                        filteredCarRequests.add(formatCarInfo(row));
+                                    }
+                                    break;
+                                default:
+                                    Log.e("Error", "Unknown filter option: " + selectedFilter);
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error", "JSON Exception: " + e.toString());
+                        }
+                    }
+                }
+
+                // Update the adapter with the filtered data
+                adapter.clear();
+                adapter.addAll(filteredCarRequests);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
     }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -156,7 +210,7 @@ public class AdminActivity extends AppCompatActivity {
         outState.putString("pendingCars", pending_cars_num.getText().toString());
     }
     private @NonNull JsonObjectRequest getJsonObjectRequest() {
-        String url = "http://172.26.32.1/api/requests_json.php";
+        String url = "http://172.19.40.34/api/requests_json.php";
         return new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -234,7 +288,6 @@ public class AdminActivity extends AppCompatActivity {
                     String email = row.getString("email");
                     String status = row.getString("status");
 
-                    // Check if the query matches any field
                     if (requestId.toLowerCase().contains(query.toLowerCase()) ||
                             carNumber.toLowerCase().contains(query.toLowerCase()) ||
                             serviceName.toLowerCase().contains(query.toLowerCase()) ||
@@ -267,7 +320,6 @@ public class AdminActivity extends AppCompatActivity {
             }
         }
 
-        // Update the adapter with all rows
         adapter.clear();
         adapter.addAll(carRequests);
         adapter.notifyDataSetChanged();
@@ -346,26 +398,15 @@ public class AdminActivity extends AppCompatActivity {
         }
 
         try {
-            // Extract the request ID from the item string
             String[] parts = item.split(" ");
-            String requestId = parts[2]; // "Request ID: 1 Car Number: ..." → parts[2] = "1"
-
-            // Find the item in the rowsArray and update its status
+            String requestId = parts[2];
             for (int i = 0; i < rowsArray.length(); i++) {
                 JSONObject row = rowsArray.getJSONObject(i);
-                String id = row.getString("request_id"); // Use "request_id" instead of "id"
-
+                String id = row.getString("request_id");
                 if (requestId.equals(id)) {
-                    // Update the status in the JSON object
                     row.put("status", newStatus);
-
-                    // Notify the adapter that the data has changed
                     adapter.notifyDataSetChanged();
-
-                    // Update the status on the server
                     updateStatusOnServer(id, newStatus);
-
-                    // Show a toast message
                     Toast.makeText(this, "Status updated to " + newStatus, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -377,15 +418,11 @@ public class AdminActivity extends AppCompatActivity {
     }
     private void deleteItem(String item) {
         try {
-            // Extract the request ID from the item string
             String[] parts = item.split(" ");
-            String requestId = parts[2]; // "Request ID: 1 Car Number: ..." → parts[2] = "1"
-
-            // Find the item in the rowsArray and remove it
+            String requestId = parts[2];
             for (int i = 0; i < rowsArray.length(); i++) {
                 JSONObject row = rowsArray.getJSONObject(i);
-                String id = row.getString("request_id"); // Use "request_id" instead of "id"
-
+                String id = row.getString("request_id");
                 if (requestId.equals(id)) {
                     rowsArray.remove(i);
                     adapter.notifyDataSetChanged();
@@ -410,9 +447,8 @@ public class AdminActivity extends AppCompatActivity {
         return "";
     }
     private void updateStatusOnServer(String id, String newStatus) {
-        String url = "http://172.26.32.1/api/update_status.php"; // Replace with your server URL
+        String url = "http://172.19.40.34/api/update_status.php";
 
-        // Create a JSON object with the parameters
         JSONObject params = new JSONObject();
         try {
             params.put("id", id);
@@ -453,14 +489,13 @@ public class AdminActivity extends AppCompatActivity {
         queue.add(request);
     }
     private void deleteItemOnServer(String id) {
-        String url = "http://172.26.32.1/api/delete_request_json.php?request_id=" + id; // Replace with your server URL
+        String url = "http://172.19.40.34/api/delete_request_json.php?request_id=" + id; // Replace with your server URL
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Check if the deletion was successful
                             boolean success = response.getBoolean("success");
                             String message = response.optString("message", "No message provided");
 

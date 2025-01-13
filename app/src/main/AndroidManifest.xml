@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- صلاحيات الوصول للإنترنت فقط -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,14 +9,13 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/carserviceslogo"
+        android:icon="@drawable/logoicon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/carserviceslogo"
+        android:roundIcon="@drawable/logoicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarMaintenanceGarageApp"
         tools:targetApi="31">
 
-        <!-- تعريف FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -28,7 +26,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!-- باقي الأنشطة -->
         <activity
             android:name=".AddAdmin"
             android:exported="false" />
@@ -44,12 +41,7 @@
         <activity
             android:name=".AddNewCarManufacturer"
             android:exported="false" />
-        <activity
-            android:name=".PayByPayPal"
-            android:exported="false" />
-        <activity
-            android:name=".PayByVisa"
-            android:exported="false" />
+
         <activity
             android:name=".NotificationAdapter"
             android:exported="false" />
@@ -58,22 +50,20 @@
             android:exported="false" />
         <activity
             android:name=".EditRequest"
-            android:exported="true" />
-        <activity
-            android:name=".AddRequestAdmin"
-            android:exported="true" />
-        <activity
-            android:name=".payment"
             android:exported="false" />
         <activity
+            android:name=".AddRequestAdmin"
+            android:exported="false" />
+
+        <activity
             android:name=".AddRequest"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".AddCarAdmin"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".AddCar"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
@@ -93,13 +83,13 @@
             android:name=".Contact"
             android:exported="false" />
         <activity
-            android:name=".WelcomePageActivity"
-            android:exported="true" />
+            android:name=".AdminActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".WelcomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

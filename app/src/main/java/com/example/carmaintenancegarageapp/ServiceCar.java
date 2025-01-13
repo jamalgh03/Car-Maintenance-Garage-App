@@ -2,23 +2,19 @@ package com.example.carmaintenancegarageapp;
 
 public class ServiceCar {
 
-
     private String name;
-    private int imageID;
+    private String imageUrl;  // أو أي نوع آخر للبيانات التي تجلبها من قاعدة البيانات
 
-    public static final ServiceCar[] pizzas = {
-            new ServiceCar("jamal", R.drawable.jamal),
-            new ServiceCar("jamal", R.drawable.jamal),
-            new ServiceCar("jamal", R.drawable.jamal),
-            new ServiceCar("jamal", R.drawable.jamal),
-            new ServiceCar("jamal", R.drawable.jamal),
-            new ServiceCar("jamal", R.drawable.jamal)
-    };
-    private ServiceCar(String name, int imageID){
+    public ServiceCar(String name, String imageUrl) {
         this.name = name;
-        this.imageID = imageID;
+        this.imageUrl = imageUrl;
     }
-    public String getName(){return name;}
-    public int getImageID(){return imageID;}
 
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }

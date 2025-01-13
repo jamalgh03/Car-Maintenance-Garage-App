@@ -4,16 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
-    private String[] notifications;
+    private List<ShowNotfication> notificationList;
 
-    public NotificationAdapter(String[] notifications) {
-        this.notifications = notifications;
+    public NotificationAdapter(List<ShowNotfication> notificationList, Notfication notfication) {
+        this.notificationList = notificationList;
     }
 
     @Override
@@ -25,20 +24,27 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(notifications[position]);
+        ShowNotfication notification = notificationList.get(position);
+        holder.carNameTextView.setText("Car name: " + notification.getCarName());
+        holder.carNumberTextView.setText("Car number: " + notification.getCarNumber());
+        holder.statusTextView.setText("Status: " + notification.getStauts());
+        holder.messageTextView.setText(notification.getMsg());
     }
 
     @Override
     public int getItemCount() {
-        return notifications.length;
+        return notificationList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        TextView carNameTextView, carNumberTextView, statusTextView, messageTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.txtNotification);
+            carNameTextView = itemView.findViewById(R.id.carNameTextView);
+            carNumberTextView = itemView.findViewById(R.id.carNumberTextView);
+            statusTextView = itemView.findViewById(R.id.statusTextView);
+            messageTextView = itemView.findViewById(R.id.messageTextView);
         }
     }
 }

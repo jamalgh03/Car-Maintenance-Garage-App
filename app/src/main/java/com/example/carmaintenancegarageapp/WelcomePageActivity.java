@@ -19,7 +19,6 @@ public class WelcomePageActivity extends Activity {
             public void onClick(View v) {
                 Intent ig = new Intent(WelcomePageActivity.this, LogInActivity.class);
                 startActivity(ig);
-
             }
         });
     }
